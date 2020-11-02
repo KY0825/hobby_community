@@ -83,6 +83,11 @@ B
 | user   | references | null: false, foreign_key: true |
 | group  | references | null: false, foreign_key: true |
 
+### Association
+
+- belongs_to :users
+- belongs_to :messages
+
 
 ## messages テーブル
 
@@ -93,10 +98,8 @@ B
 | group  | references | null: false, foreign_key: true |
 
 ### Association
-
-- has_many :users
-- has_many :chats
-
+- belongs_to :users
+- belongs_to :messages
 
 
 
