@@ -1,0 +1,35 @@
+<div class='chat-room-form'>
+  <h1>新規グループ作成</h1>
+  <%=form_with model: @group, local: true do |f|%>
+    <div class='group-form__field'>
+      <div class='group-room-form__field--left'>
+        <%= f.label :チャットルーム名, class: 'group-room-form__label'%>
+      </div>
+      <div class='group-room-form__field--right'>
+        <%= f.text_field :name, class: 'group__room_name group-room-form__input', placeholder: 'グループ名を入力してください'%>
+      </div>
+    </div>
+    <div class='group-room-form__field'>
+    </div>
+    <div class='group-form__field'>
+      <div class='group-form__field--left'>
+        <label class='group-form__label' for='group_メンバー'>グループメンバー</label>
+      </div>
+      <div class='group-form__field--right'>
+        <select name="group[user_ids][]">
+          <option value="">チャットするユーザーを選択してください</option>
+          <% User.where.not(id: current_user.id).all.each do |user| %>
+            <option value=<%= user.id %>><%= user.name %></option>
+          <% end %>
+        </select>
+        <input name="group[user_ids][]" type="hidden" value=<%= current_user.id %>>
+      </div>
+    </div>
+    <div class='group-form__field'>
+      <div class='group-form__field--left'></div>
+      <div class='group-form__field--right'>
+        <%= f.submit class: 'group-form__action-btn'%>
+      </div>
+    </div>
+  <% end %>
+</div>
