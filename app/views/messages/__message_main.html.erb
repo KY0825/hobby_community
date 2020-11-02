@@ -1,0 +1,29 @@
+<div class="message-header">
+  <div class="message-left-header">
+    <div class="message-title">
+      <%= @group.name %>
+    </div>
+  </div>
+  <div class="message-right-header">
+    <%# グループ作成者にのみ表示 グループ編集画面へ%>
+    <div class="message-header-button">
+      <%= link_to "グループを削除する", room_path(@group), method: :delete %>
+    </div>
+    <%# //グループ作成者にのみ表示 グループ編集画面へ%>
+  </div>
+</div>
+
+<div class="messages">
+  <%= render partial: 'message', collection: @messages %>
+</div>
+
+<%= form_with model: [@group, @message], html: {class: "message-form"}, local: true do |f| %>
+  <div class="message-form-input">
+    <%= f.text_field :content, class: 'form-message', placeholder: 'メッセージを入力する' %>
+    <label class="message-form-image">
+      <span class="message-image-file">画像</span>
+      <%= f.file_field :image, class: 'hidden' %>
+    </label>
+  </div>
+  <%= f.submit '送信', class: 'message-submit' %>
+<% end %>
