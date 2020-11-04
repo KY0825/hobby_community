@@ -3,25 +3,30 @@
     <%= render "messages/_message_side_bar" %>
   <%# </div>
 </div> %>
-
-<%# トーク一覧（ログインユーザーのみ可） %>
-  <%# <div class='room-contents'>
-    <h2 class='title'>ルーム一覧</h2>
-    <ul class='room-lists'> %>
-      <%# @rooms.each do |room| %>
-        <%#= link_to root_path do %>
-          <%# <li class='room-list'>
-          <div class='room-img-content'> %>
-            <%#= image_tag room.image.variant(resize: '500x500'), class: "room-img" %>
-          <%# </div>
+  <% if user_signed_in? %>
+    <div class='group-header-menu'>
+      <%= link_to "新規グループ作成", new_group_path %>
+    </div class='group-header-menu'>
+  <% end %>
+<%# グループ一覧（ログインユーザーのみ可） %>
+  <div class='group-contents'>
+    <h2 class='group-title'>ルーム一覧</h2>
+    <ul class='group-lists'>
+      <% @groups.each do |group| %>
+        <%= link_to root_path do %>
+          <li class='group-list'>
+          <div class='group-img-content'>
+            <%= image_tag group.image.variant(resize: '200x200'), class: "group-img" if group.image.attached? %>
+          </div>
         <% end %>
-        <%# <div class='room-info'>
-          <h3 class='room-name'> %>
-            <%#= room.name %>
-          <%# </h3>
-        </div> %>
-        <%# end %>
-      <%# </li>
+        <div class='gruop-info'>
+          <h3 class='group-name'>
+            <%= group.name %>
+          </h3>
+        </div>
+        <% end %>
+      </li>
     </ul>
-  </div> %>
-<%# /トーク一覧（ログインユーザーのみ可） %>
+    <%#= link_to "#","もっと見る" %>
+  </div>
+<%# /グループ一覧（ログインユーザーのみ可） %>
