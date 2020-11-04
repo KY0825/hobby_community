@@ -19,7 +19,7 @@
           </div>
           <% if user_signed_in? %>
             <div class="nav__right">
-              <%= link_to "#{user.name} さん", root_path,class: :nav__logout %>
+              <%= link_to "#{current_user.nickname}", "/users/#{current_user.id}" %>
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: :nav__logout %>
             </div>
           <% else %>
@@ -30,7 +30,7 @@
           <% end %>
       </div>
     </header>
-    <%# if user_signed_in? %>
+    <% if user_signed_in? %>
     <div class="menu">
       <div class="menu__var">
         <%= link_to "マイページ", root_path, class: :menu__btn %>
@@ -40,7 +40,7 @@
         <%= link_to "日記一覧", root_path, class: :menu__btn %>
       </div class="menu__var">
     </div>
-    <%# end %>
+    <% end %>
     <%= yield %>
     <footer class="footer">
       <p class="copyright">Copyright © HOBIC All rights reserved.</p>
