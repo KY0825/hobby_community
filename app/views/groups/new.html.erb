@@ -1,29 +1,42 @@
 <div class='chat-room-form'>
   <h1>新規グループ作成</h1>
+
+  <%#= link_to "カテゴリー・ジャンル追加申請", "#" %>
+
   <%=form_with model: @group, local: true do |f|%>
     <div class='group-form__field'>
       <div class='group-room-form__field--left'>
-        <%= f.label :チャットルーム名, class: 'group-room-form__label'%>
+        <%= f.label :グループ名, class: 'group-room-form__label'%>
       </div>
       <div class='group-room-form__field--right'>
         <%= f.text_field :name, class: 'group__room_name group-room-form__input', placeholder: 'グループ名を入力してください'%>
+      </div>
+      <div class="group-room-form__field--left">
+        <%= f.label :image, "グループアイコン" %><br />
+        <%= f.file_field :image %>
+      </div>
+      <div class='group-room-form__field--left'>
+        <%= f.label :カテゴリー, class: 'group-room-form__label'%>
+      </div>
+      <div class='group-room-form__field--right'>
+        <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"group-select"}) %>
+      </div>
+      <div class='group-room-form__field--left'>
+        <%= f.label :ジャンル, class: 'group-room-form__label'%>
+      </div>
+      <div class='group-room-form__field--right'>
+        <%= f.collection_select(:genre_id, Genre.all, :id, :name, {}, {class:"group-select"}) %>
+      </div>
+      <div class='group-room-form__field--left'>
+        <%= f.label :グループ説明, class: 'group-room-form__label'%>
+      </div>
+      <div class='group-room-form__field--right'>
+        <%= f.text_field :text, class: 'group__room_name group-room-form__input', placeholder: 'どんなグループ？'%>
       </div>
     </div>
     <div class='group-room-form__field'>
     </div>
     <div class='group-form__field'>
-      <div class='group-form__field--left'>
-        <label class='group-form__label' for='group_メンバー'>グループメンバー</label>
-      </div>
-      <div class='group-form__field--right'>
-        <select name="group[user_ids][]">
-          <option value="">チャットするユーザーを選択してください</option>
-          <% User.where.not(id: current_user.id).all.each do |user| %>
-            <option value=<%= user.id %>><%= user.name %></option>
-          <% end %>
-        </select>
-        <input name="group[user_ids][]" type="hidden" value=<%= current_user.id %>>
-      </div>
     </div>
     <div class='group-form__field'>
       <div class='group-form__field--left'></div>
