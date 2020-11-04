@@ -5,13 +5,14 @@ class Group < ApplicationRecord
   belongs_to :genre
 
   has_many :group_users
-  has_many :users, through: :group_users
-  has_many :messages
+  has_many :users, through: :group_users, dependent: :destroy
+  accepts_nested_attributes_for :group_users
+  has_many :messages, dependent: :destroy
 
   has_one_attached :image
 
   with_options presence: true do
-    validates :name
+    validates :name, uniqueness: true
     validates :text
     validates :category_id
     validates :genre_id
